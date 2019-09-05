@@ -8,5 +8,6 @@
     "navigationBarTitleText": "学习",
     "backgroundColor": "#eeeeee",
     "backgroundTextStyle": "light"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
