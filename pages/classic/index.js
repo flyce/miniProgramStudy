@@ -1,3 +1,6 @@
+import { ClassicModel } from '../../models/classic';
+const classic = new ClassicModel();
+
 // pages/classic/index.js
 Page({
 
@@ -12,14 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.request({
-      url: "http://10.1.11.187:3000/classic/latest",
-      success: (res) => {
-        console.log(res);
-      },
-      error: () => {
-
-      }
+    classic.getLatest((res) => {
+      this.setData({
+        classic: res
+      });
     })
   },
 
