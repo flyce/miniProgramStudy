@@ -11,7 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    classic: null,
+    first: false,
+    latest: true 
   },
 
   /**
@@ -29,6 +31,14 @@ Page({
     console.log(event);
     const { behavior } = event.detail;
     likeModel.like(behavior, this.data.classic.id, this.data.classic.type);
+  },
+
+  onNext: function(event) {
+
+  },
+
+  onPrvious: function(event)  {
+
   },
 
   /**
