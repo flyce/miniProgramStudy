@@ -2,7 +2,7 @@
 import { classicBeh } from '../classic-beh';
 
 Component({
-  behaviors: [classicBeh],
+  behaviors: [classicBeh], 
   /**
    * 组件的属性列表
    */

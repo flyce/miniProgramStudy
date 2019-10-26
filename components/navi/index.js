@@ -29,9 +29,9 @@ Component({
       }
     },
     onRight: function(event) {
-     if(this.properties.first) {
-      this.triggerEvent('right', {}, {}); 
-     }
+      if(!this.properties.first) {
+        this.triggerEvent('right', {}, {}); 
+      }
     }
   }
 })

@@ -13,7 +13,9 @@ Page({
   data: {
     classic: null,
     first: false,
-    latest: true 
+    latest: true,
+    likeStatus: true,
+    likeCount: 0
   },
 
   /**
@@ -22,23 +24,47 @@ Page({
   onLoad: function (options) {
     classicModel.getLatest((res) => {
       this.setData({
-        classic: res
+        classic: res,
+        likeCount: res.fav_nums,
+        likeStatus: res.like_status
       });
     })
   },
 
   onLike: function (event) {
-    console.log(event);
     const { behavior } = event.detail;
     likeModel.like(behavior, this.data.classic.id, this.data.classic.type);
   },
 
   onNext: function(event) {
-
+    this._updateClassic('next');
   },
 
-  onPrvious: function(event)  {
+  onPrvious: function(event) {
+    this._updateClassic('prvious');
+  },
 
+  _updateClassic: function(nextOrPrvious) {
+    const { index } = this.data.classic;
+    classicModel.getClassic(index, nextOrPrvious, (res) => {
+      this._getLikeStatus(res.id, res.type);
+      this.setData({
+        classic: res,
+        latest: classicModel.isLatest(res.index),
+        first: classicModel.isFirst(res.index)
+      });
+    });
+  },
+
+  _getLikeStatus: function(artId, category) {
+    likeModel.getClassicStatus(artId, category,
+      res => {
+        this.setData({
+          likeCount: res.fav_nums,
+          likeStatus: res.like_status
+        })
+      }
+    );
   },
 
   /**
