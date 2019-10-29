@@ -7,28 +7,33 @@ const tips = {
 }
 
 class HTTP {
-    request(params) {
-        if(!params.method) {
-            params.method = "GET";
-        }
+    request({url, method = "GET", data = {}}) {
+        return new Promise((resolve, reject) => {
+            this._request(url, resolve, reject, method, data);
+        });
+    }
+
+    _request(url, resolve, reject, method='GET', data={}) {
         wx.request({
-            url: config.api_base_url + params.url,
-            method: params.method,
-            data: params.data,
+            url: config.api_base_url + url,
+            method,
+            data,
             header: {
                 'content-type': 'application/json',
                 'appkey': config.appKey
             },
             success: (res) => {
-                let code = res.statusCode.toString();
+                const code = res.statusCode.toString();
                 if(code.startsWith('2')) {
-                   params.success && params.success(res.data);
+                   resolve(res.data);
                 } else {
-                   let error_code = res.data.error_code;
-                   this._show_error(error_code);
+                    reject();
+                    const error_code = res.data.error_code;
+                    this._show_error(error_code);
                 }
             },
             fail: (err) => {
+                reject();
                this._show_error(1);
             }
         })
@@ -47,4 +52,4 @@ class HTTP {
     }
 }
 
-export { HTTP };
+export { HTTP }; 
