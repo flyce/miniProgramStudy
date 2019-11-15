@@ -7,6 +7,9 @@ var format = function (text) {
 }
 
 var limit = function(array, length = 3) {
+    if(!array) {
+        return ;
+    }
     return array.slice(0, length);
 }
 

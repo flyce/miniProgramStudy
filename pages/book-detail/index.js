@@ -22,10 +22,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading();
     const bid = options.bid;
     const detail = bookModel.getDetail(bid);
     const comments = bookModel.getComments(bid);
     const likeStatus = bookModel.getLikeStatus(bid);
+
+    Promise.all([detail, comments, likeStatus]).then(res => {
+      this.setData({
+        book: res[0],
+        comments: res[1].comments,
+        likeStatus: res[2].like_status,
+        likeCount: res[2].fav_nums
+      });
+      wx.hideLoading();
+    });
 
     detail.then(res=> {
       this.setData({
