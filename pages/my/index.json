@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "v-button": "../../components/image-button/index",
+    "v-peiview": "../../components/preview/index"
+  }
 }

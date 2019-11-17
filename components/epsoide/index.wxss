@@ -1,5 +1,5 @@
 .container {
-     height: 60rpx;
+    height: 60rpx;
     display: inline-flex;
     flex-direction: row;
 }
@@ -14,6 +14,12 @@
     font-weight: 800;
     margin-right: 14rpx;
 }
+
+.index-container{
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;      
+  }
 
 .line {
     height: 44rpx;
